@@ -1,0 +1,38 @@
+from  Tkinter import *
+import random
+# h a n d l e s e l e c t e d c l i e n t
+def callback(event):
+    print "clicked at",event.x, event.y
+# H a n d l e e n t e r
+def text_place_handler(event):
+    print "clicked at",event.x, event.y
+def create_client_module(parent):
+    for i in range(10):
+        ct = [random.randrange(256) for x in range(3)]
+        brightness = int(round(0.299 * ct[0] + 0.587 * ct[1] + 0.114 * ct[2]))
+        ct_hex = "%02x%02x%02x" % tuple(ct)
+        bg_colour = '#' + "" .join(ct_hex)
+        l = Label(parent,
+            text="ABC",
+            fg='White' if brightness < 120 else 'Black',
+            bg=bg_colour)
+        l.bind("<Button­1>", callback)
+        l.place(x=20, y=30 + i * 30, width=120, height=25)
+class DrawBottomFrame:
+    def  __init__(self, root):
+        fm = Frame(root, bg="green")
+        fm.place(x=150, y=350, width=350, height=150)
+        text_place = Text(fm, bg="white")
+        text_place.place(x=5, y=5, width=340, height=140)
+        text_place.bind("<Enter>",text_place_handler)
+root = Tk()
+left_frame = Frame(root ,bg="Blue")
+left_frame.place(x=0, y=0, width=150, height=500)
+create_client_module(left_frame)
+center_frame = Frame(root, bg="red")
+center_frame.place(x=150, y=0, width=350, height=350)
+# W e c a n u s e c l a s s t o i n i t i a t e a f r a m e o t u i e l e m e n t
+bottom = DrawBottomFrame(root)
+root.geometry('500x500')
+root.resizable(width=False, height=False)
+root.mainloop()
